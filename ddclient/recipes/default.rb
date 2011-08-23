@@ -1,8 +1,9 @@
 #
-# Cookbook Name:: gitolite
+# Cookbook Name:: ddclient
 # Recipe:: default
 #
 # Copyright 2010, RailsAnt, Inc.
+# Copyright 2011, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,13 +20,23 @@ package "ddclient" do
   action :install
 end
 
-
-template "/etc/ddclient.conf" do
-  source "ddclient.conf.erb"
-  owner "root"
-  group "root"
-  mode "0600"
+service "ddclient" do
+  supports :restart => true, :status => true, :reload => true
+  action [ :enable, :start]
 end
 
+template "/etc/ddclient.conf" do
+  owner "root"
+  group "root"
+  mode 0600
+  source "ddclient.conf.erb"
+  notifies :restart, "service[ddclient]"
+end
 
-
+template "/etc/default/ddclient" do
+  owner "root"
+  group "root"
+  mode 0600
+  source "ddclient.erb"
+  notifies :restart, "service[ddclient]"
+end

@@ -1,17 +1,42 @@
 DESCRIPTION
 ===========
-
-Installs ddclient, a Point to Point Tunneling Server.
+Configures ddclient for connecting to DynDNS or other dynamic dns providers supported by ddclient. ddclient runs as a daemon.
 
 REQUIREMENTS
 ============
+Platform with a package named 'ddclient'. Tested with Ubuntu 10.04.
 
-Platform with a package named 'ddclient'.
+RECIPES
+=======
+default
+-------
+The `default` recipe installs ddclient and fills out the `/etc/ddclient.conf` and `/etc/default/ddclient`.
+
+USAGE
+=====
+You will need to set the attributes for your DynDNS user, password and domain. Check the `attributes/default.rb` for other available attributes (note the 6 hour update interval). Here is an example role:
+
+    name "ddclient"
+    description "ddclient"
+    
+    run_list [
+      "recipe[ddclient]"
+    ]
+    
+    override_attributes(
+      "ddclient" => {
+        "login" => "myuser",
+        "password" => "mypassword,
+        "domain" => "mydomain.dyndns-server.com"
+      }
+    )
 
 LICENSE AND AUTHOR
 ==================
 
 Author:: David Ruan (<ruanwz@gmail.com>)
+
+Author:: Matt Ray (<matt@opscode.com>)
 
 Copyright:: David Ruan (<ruanwz@gmail.com>)
 
