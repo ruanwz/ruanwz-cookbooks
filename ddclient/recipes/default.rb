@@ -26,17 +26,17 @@ service "ddclient" do
 end
 
 template "/etc/ddclient.conf" do
+  source "ddclient.conf.erb"
   owner "root"
   group "root"
-  mode 0600
-  source "ddclient.conf.erb"
+  mode "0600"
   notifies :restart, "service[ddclient]"
 end
 
 template "/etc/default/ddclient" do
+  source "ddclient.erb"
   owner "root"
   group "root"
-  mode 0600
-  source "ddclient.erb"
+  mode "0600"
   notifies :restart, "service[ddclient]"
 end
