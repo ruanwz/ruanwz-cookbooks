@@ -20,6 +20,12 @@ package "ddclient" do
   action :install
 end
 
+if node["ddclient"]["ssl"] == "yes"
+  package "libio-socket-ssl-perl" do
+    action :install
+  end
+end
+
 service "ddclient" do
   supports :restart => true, :status => true, :reload => true
   action [ :enable, :start]
