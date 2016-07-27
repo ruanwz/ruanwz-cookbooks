@@ -7,5 +7,10 @@ use=<%= node[:ddclient][:use] %>
 server=<%= node[:ddclient][:server] %>
 login=<%= node[:ddclient][:login] %>
 password='<%= node[:ddclient][:password] %>'
+<%- if node[:ddclient][:configs].length > 0 %>
+  <%- node[:ddclient][:configs].each do |name, value| -%>
+<%= name =%>=<%= value %>
+  <%- end -%>
+<% end %>
 <%= node[:ddclient][:domain] %>
 
