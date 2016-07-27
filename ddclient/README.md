@@ -31,6 +31,27 @@ You will need to set the attributes for your DynDNS user, password and domain. C
       }
     )
 
+You can add extra configuration options in
+
+    override_attributes(
+      "ddclient" => {
+        "configs" => {
+          "config" => "value"
+        }
+      }
+    )
+
+Example:
+
+    override_attributes(
+      "ddclient" => {
+        "configs" => {
+          "mx" => "aspmx.l.google.com.",
+          "wildcard" => "yes"
+        }
+      }
+    )
+
 LICENSE AND AUTHOR
 ==================
 
